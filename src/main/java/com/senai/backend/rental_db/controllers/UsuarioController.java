@@ -21,6 +21,11 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
+    @GetMapping("/cadastrar-usuario")
+        public Usuario cadastrarUsuario1(@RequestBody Usuario usuario) {
+            return usuarioService.registrarUsuario(usuario);
+        }
+
     @GetMapping("/contar-usuarios")
         public long contaUsarios() {
             return usuarioService.countUsuarios();

@@ -1,9 +1,5 @@
 package com.senai.backend.rental_db.controllers;
 
-import org.springframework.web.bind.annotation.RestController;
-
-import com.senai.backend.rental_db.services.MovimentacaoService;
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,50 +13,48 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.senai.backend.rental_db.models.Equipamento;
-import com.senai.backend.rental_db.models.Usuario;
 import com.senai.backend.rental_db.services.EquipamentoService;
 
 @RestController
-@RequestMapping("/usuario")
-public class EquipamentoController{
+@RequestMapping("/equipamento")
+public class EquipamentoController {
 
     @Autowired
     private EquipamentoService equipamentoService;
-    private Object usuario;
 
-    @GetMapping("/contar-movimentacao")
-        public long contaUsarios() {
-            return EquipamentoService.contartUsuarios();
-        } 
+    @GetMapping("/contar")
+    public long contarEquipamentos() {
+        return equipamentoService.countEquipamentos();
+    } 
+
+    @GetMapping("/buscar/{id}")
+    public Equipamento buscarEquipamento(@PathVariable Integer id) {
+        return equipamentoService.buscarEquipamentoPorId(id);
+    } 
+
+    @GetMapping("/listar")
+    public List<Equipamento> listarEquipamentos() {
+        return equipamentoService.listarEquipamentos();
+    } 
+
+    @DeleteMapping("/deletar/{id}")
+    public String deletarEquipamento(@PathVariable Integer id) {
+        equipamentoService.deletarEquipamento(id);
+        return "Equipamento removido com sucesso";
         
-    @GetMapping("/buscar-usuarios/{id}")
-        public Equipamento buscarUsuario(@PathVariable Integer id) {
-            return EquipamentoService.buscarUsuarioPorId(id);
-        } 
+    } 
 
-    @GetMapping("/listar-usuarios")
-        public List<Usuario> listarUsuarios() {
-            return EquipamentoService.listarUsuarios();
-        } 
+    @PostMapping("/salvar")
+    public Equipamento cadastrarEquipamento(@RequestBody Equipamento equipamento) {
+        return equipamentoService.registrarEquipamento(equipamento);
+    } 
 
-    @DeleteMapping("/deletar-usuario/id")
-        public String deletarUsuario(@PathVariable Integer id) {
-            if (EquipamentoService.deletarUsuario(id)) {
-                return "Equipamento removido com sucesso";
-            }
-            return "Falha ao remover Equipamento";
-        } 
-    
-    @PostMapping("/salvar-usuario")
-        public Equipamento cadastrarUsuario(@RequestBody Equipamento equipamento) {
-            return EquipamentoService.cadastrarUsuario(usuario);
-        } 
-
-    @PutMapping("/atualizar-usuario/{id}")
-        public String atualizarUsuario(@PathVariable Integer id, @RequestBody Equipamento equipamento) {
-            if (EquipamentoService.atualizarUsuario(id, equipamento) != null) {
-                return "Equipamento atualizado com sucesso";
-            }
-            return "Falha ao atualizar Equipamento.";
-        } 
+    @PutMapping("/atualizar/{id}")
+    public String atualizarEquipamento(@PathVariable Integer id, @RequestBody Equipamento equipamento) {
+        equipamento.setId(id);
+        if (equipamentoService.atualizarEquipamento(equipamento) != null) {
+            return "Equipamento atualizado com sucesso";
+        }
+        return "Falha ao atualizar Equipamento.";
+    } 
 }

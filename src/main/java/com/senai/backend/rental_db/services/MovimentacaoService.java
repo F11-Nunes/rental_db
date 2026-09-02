@@ -6,14 +6,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.senai.backend.rental_db.models.Movimentacao;
-import com.senai.backend.rental_db.models.Usuario;
 import com.senai.backend.rental_db.repositories.MovimentacaoRepository;
 
 @Service
 public class MovimentacaoService {
-    
+
     @Autowired
     private MovimentacaoRepository movimentacaoRepository;
+
+    public long contarMovimentacoes() {
+        return movimentacaoRepository.count();
+    }
+
+    public List<Movimentacao> listarMovimentacoes() {
+        return movimentacaoRepository.findAll();
+    }
 
     public Movimentacao registrarMovimentacao(Movimentacao movimentacao) {
         return movimentacaoRepository.save(movimentacao);
@@ -23,34 +30,15 @@ public class MovimentacaoService {
         return movimentacaoRepository.findById(id).orElse(null);
     }
 
-	public static long contartUsuarios() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'contartUsuarios'");
-	}
-
-    public static Movimentacao buscarUsuarioPorId(Integer id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'buscarUsuarioPorId'");
+    public Movimentacao atualizarMovimentacao(Movimentacao movimentacao) {
+        return movimentacaoRepository.save(movimentacao);
     }
 
-    public static List<Usuario> listarUsuarios() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'listarUsuarios'");
+    public boolean deletarMovimentacao(Integer id) {
+        if (movimentacaoRepository.existsById(id)) {
+            movimentacaoRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
-
-    public static boolean deletarUsuario(Integer id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deletarUsuario'");
-    }
-
-    public static Movimentacao cadastrarUsuario(Object usuario) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'cadastrarUsuario'");
-    }
-
-    public static Object atualizarUsuario(Integer id, Movimentacao movimentacao) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'atualizarUsuario'");
-    }
-
 }

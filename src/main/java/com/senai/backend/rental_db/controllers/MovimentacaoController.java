@@ -1,7 +1,5 @@
 package com.senai.backend.rental_db.controllers;
 
-import com.senai.backend.rental_db.services.MovimentacaoService;
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,50 +13,49 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.senai.backend.rental_db.models.Movimentacao;
-import com.senai.backend.rental_db.models.Usuario;
 import com.senai.backend.rental_db.services.MovimentacaoService;
 
 @RestController
-@RequestMapping("/usuario")
+@RequestMapping("/movimentacao")
 public class MovimentacaoController {
 
     @Autowired
-    private MovimentacaoService usuarioService;
-    private Object usuario;
+    private MovimentacaoService movimentacaoService;
 
-    @GetMapping("/contar-movimentacao")
-        public long contaUsarios() {
-            return MovimentacaoService.contartUsuarios();
-        } 
-        
-    @GetMapping("/buscar-usuarios/{id}")
-        public Movimentacao buscarUsuario(@PathVariable Integer id) {
-            return MovimentacaoService.buscarUsuarioPorId(id);
-        } 
+    @GetMapping("/contar")
+    public long contarMovimentacoes() {
+        return movimentacaoService.contarMovimentacoes();
+    } 
 
-    @GetMapping("/listar-usuarios")
-        public List<Usuario> listarUsuarios() {
-            return MovimentacaoService.listarUsuarios();
-        } 
+    @GetMapping("/buscar/{id}")
+    public Movimentacao buscarMovimentacao(@PathVariable Integer id) {
+        return movimentacaoService.consultarMovimentacaoPorId(id);
+    } 
 
-    @DeleteMapping("/deletar-usuario/id")
-        public String deletarUsuario(@PathVariable Integer id) {
-            if (MovimentacaoService.deletarUsuario(id)) {
-                return "Movimentacao removido com sucesso";
-            }
-            return "Falha ao remover Movimentacao";
-        } 
-    
-    @PostMapping("/salvar-usuario")
-        public Movimentacao cadastrarUsuario(@RequestBody Movimentacao movimentacao) {
-            return MovimentacaoService.cadastrarUsuario(usuario);
-        } 
+    @GetMapping("/listar")
+    public List<Movimentacao> listarMovimentacoes() {
+        return movimentacaoService.listarMovimentacoes();
+    } 
 
-    @PutMapping("/atualizar-usuario/{id}")
-        public String atualizarUsuario(@PathVariable Integer id, @RequestBody Movimentacao movimentacao) {
-            if (MovimentacaoService.atualizarUsuario(id, movimentacao) != null) {
-                return "Movimentacao atualizado com sucesso";
-            }
-            return "Falha ao atualizar Movimentacao.";
-        } 
+    @DeleteMapping("/deletar/{id}")
+    public String deletarMovimentacao(@PathVariable Integer id) {
+        if (movimentacaoService.deletarMovimentacao(id)) {
+            return "Movimentação removida com sucesso";
+        }
+        return "Falha ao remover Movimentação";
+    } 
+
+    @PostMapping("/salvar")
+    public Movimentacao cadastrarMovimentacao(@RequestBody Movimentacao movimentacao) {
+        return movimentacaoService.registrarMovimentacao(movimentacao);
+    } 
+
+    @PutMapping("/atualizar/{id}")
+    public String atualizarMovimentacao(@PathVariable Integer id, @RequestBody Movimentacao movimentacao) {
+        movimentacao.setId(id);
+        if (movimentacaoService.atualizarMovimentacao(movimentacao) != null) {
+            return "Movimentação atualizada com sucesso";
+        }
+        return "Falha ao atualizar Movimentação.";
+    } 
 }

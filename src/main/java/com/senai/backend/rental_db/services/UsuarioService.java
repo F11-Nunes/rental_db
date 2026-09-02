@@ -36,12 +36,10 @@ public class UsuarioService {
     }
 
     public List<Usuario> listarUsuarios() {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'listarUsuarios'");
     }
 
     public boolean cadastrarUsuario(Usuario usuario) {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'cadastrarUsuario'");
     }
 }

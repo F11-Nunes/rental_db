@@ -19,6 +19,10 @@ public class EquipamentoService {
         return equipamentoRepository.count();
     }
 
+    public List<Equipamento> listarEquipamentos() {
+        return equipamentoRepository.findAll();
+    }
+
     public Equipamento registrarEquipamento(Equipamento equipamento) {
         return equipamentoRepository.save(equipamento);
     }
@@ -35,33 +39,4 @@ public class EquipamentoService {
         equipamentoRepository.deleteById(id);
     }
 
-    public static long contartUsuarios() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'contartUsuarios'");
-    }
-
-    public static Equipamento buscarUsuarioPorId(Integer id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'buscarUsuarioPorId'");
-    }
-
-    public static List<Usuario> listarUsuarios() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'listarUsuarios'");
-    }
-
-    public static boolean deletarUsuario(Integer id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deletarUsuario'");
-    }
-
-    public static Equipamento cadastrarUsuario(Object usuario) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'cadastrarUsuario'");
-    }
-
-    public static Object atualizarUsuario(Integer id, Equipamento equipamento) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'atualizarUsuario'");
-    }
 }
