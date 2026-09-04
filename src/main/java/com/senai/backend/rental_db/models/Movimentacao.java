@@ -30,6 +30,9 @@ public class Movimentacao {
     @Column (name= "observacao_status")
     private String observacao_status;
 
+    public Movimentacao() {
+    }
+
     public Movimentacao(Integer id, Integer id_equipamento, Integer id_usuario, String tipo_movimentacao,
             Integer quantidade, String observacao_status) {
         this.id = id;

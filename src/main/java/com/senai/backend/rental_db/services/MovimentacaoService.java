@@ -2,7 +2,6 @@ package com.senai.backend.rental_db.services;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.senai.backend.rental_db.models.Movimentacao;
@@ -11,8 +10,11 @@ import com.senai.backend.rental_db.repositories.MovimentacaoRepository;
 @Service
 public class MovimentacaoService {
 
-    @Autowired
-    private MovimentacaoRepository movimentacaoRepository;
+    private final MovimentacaoRepository movimentacaoRepository;
+
+    MovimentacaoService(MovimentacaoRepository movimentacaoRepository) {
+        this.movimentacaoRepository = movimentacaoRepository;
+    }
 
     public long contarMovimentacoes() {
         return movimentacaoRepository.count();

@@ -2,7 +2,6 @@ package com.senai.backend.rental_db.services;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.senai.backend.rental_db.models.Usuario;
@@ -11,8 +10,11 @@ import com.senai.backend.rental_db.repositories.UsuarioRepository;
 @Service
 public class UsuarioService {
     
-    @Autowired
-    private UsuarioRepository usuarioRepository;
+    private final UsuarioRepository usuarioRepository;
+
+    UsuarioService(UsuarioRepository usuarioRepository) {
+        this.usuarioRepository = usuarioRepository;
+    }
 
     public Long countUsuarios() {
         return usuarioRepository.count();
@@ -31,15 +33,21 @@ public class UsuarioService {
     }
 
     public boolean deletarUsuario(Integer id) {
+    if (usuarioRepository.existsById(id)) {
         usuarioRepository.deleteById(id);
-        return false;
+        return true;
     }
+    return false;
+}
 
     public List<Usuario> listarUsuarios() {
-        throw new UnsupportedOperationException("Unimplemented method 'listarUsuarios'");
+        return usuarioRepository.findAll();
     }
 
     public boolean cadastrarUsuario(Usuario usuario) {
-        throw new UnsupportedOperationException("Unimplemented method 'cadastrarUsuario'");
+        usuarioRepository.save(usuario);
+        return true;
     }
-}
+    }
+    
+

@@ -2,7 +2,6 @@ package com.senai.backend.rental_db.controllers;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,8 +18,11 @@ import com.senai.backend.rental_db.services.EquipamentoService;
 @RequestMapping("/equipamento")
 public class EquipamentoController {
 
-    @Autowired
-    private EquipamentoService equipamentoService;
+    private final EquipamentoService equipamentoService;
+
+    EquipamentoController(EquipamentoService equipamentoService) {
+        this.equipamentoService = equipamentoService;
+    }
 
     @GetMapping("/contar")
     public long contarEquipamentos() {

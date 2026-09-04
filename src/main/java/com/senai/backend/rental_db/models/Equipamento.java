@@ -33,6 +33,9 @@ public class Equipamento {
     @Column (name= "qtd_estoque_minimo")
     private Integer qtd_estoque_minimo;
 
+    public Equipamento() {
+    }
+
     public Equipamento(Integer id, String nome, String marca, String modelo, String categoria, Integer qtd_total,
             Integer qtd_estoque_minimo) {
         this.id = id;

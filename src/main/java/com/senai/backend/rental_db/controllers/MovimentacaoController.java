@@ -2,7 +2,6 @@ package com.senai.backend.rental_db.controllers;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,8 +18,11 @@ import com.senai.backend.rental_db.services.MovimentacaoService;
 @RequestMapping("/movimentacao")
 public class MovimentacaoController {
 
-    @Autowired
-    private MovimentacaoService movimentacaoService;
+    private final MovimentacaoService movimentacaoService;
+
+    MovimentacaoController(MovimentacaoService movimentacaoService) {
+        this.movimentacaoService = movimentacaoService;
+    }
 
     @GetMapping("/contar")
     public long contarMovimentacoes() {
